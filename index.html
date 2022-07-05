@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Home</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        height: 100vh;
+        font-family: FSMeridian-Regular;
+        overflow: hidden;
+      }
+      .body-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+
+      .container {
+        max-width: 1200px;
+        padding: 20px;
+        margin: auto;
+      }
+
+      /* Mobile Header */
+      #header {
+        display: none;
+        background-color: #fff;
+        z-index: 999;
+      }
+      .mobile-list {
+        /* display: none; */
+        position: absolute;
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 99;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.5s ease-in-out;
+        transform: translateX(100%);
+      }
+
+      .hamburger div {
+        width: 30px;
+        height: 4px;
+        margin: 4px 0px;
+        background-color: #888787;
+        border-radius: 5px;
+      }
+      .navbar-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .close {
+        position: absolute;
+        top: 33px;
+        left: 33px;
+        cursor: pointer;
+      }
+      /* Header */
+      .home-header {
+        width: 12%;
+        height: 100%;
+        z-index: 2;
+        background-color: #fff;
+      }
+
+      .home-header_logo {
+        padding-top: 68px;
+        height: 20%;
+      }
+      .home-header_logo_img {
+        width: 87px;
+        height: 50px;
+        margin: auto;
+      }
+      .home-header_logo_img img {
+        width: 100%;
+        height: 100%;
+      }
+      /* nav */
+      .home-nav {
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .home-nav_list {
+        list-style: none;
+      }
+      .home-nav_item {
+        padding: 0 12px;
+        margin: 22px 0;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.4s ease;
+      }
+
+      .home-nav_link {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: FSMeridian-Medium;
+        font-size: 13px;
+        cursor: pointer;
+        color: #2e2e2e;
+      }
+      .home-nav_item.active .home-nav_link {
+        color: #ffce3b;
+      }
+      .home-nav_link:hover {
+        color: #ffce3b;
+      }
+      .home-original {
+        width: 100%;
+      }
+      .home-main {
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+      .social-home {
+        position: absolute;
+        bottom: 53px;
+        left: 40px;
+      }
+      .social-home a {
+        text-decoration: none;
+        padding: 0 2px;
+        color: #bbbb;
+      }
+      .social-home i {
+        font-size: 19px;
+      }
+      /* Title Header */
+      #home-title {
+        width: 339px;
+        height: 100%;
+      }
+      .home-title_text {
+        padding-left: 40px;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        padding-top: 270px;
+      }
+      .home-title_text h1 {
+        font-family: Oswald-Light;
+        font-weight: 100;
+        font-size: 60px;
+        line-height: 70px;
+        color: #2e2e2e;
+      }
+      .home-title_text_header {
+        transform: translateX(-200%);
+        padding-bottom: 115px;
+        animation: Title 1s ease 0.5s forwards;
+      }
+      .home-title_text_header h1 {
+        padding-bottom: 15px;
+      }
+      .home-title_text_header p {
+        padding-right: 20px;
+        font-size: 20px;
+        font-family: FSMeridian-Regular;
+      }
+      .home-title_text .btn {
+        text-decoration: none;
+        color: #2e2e2e;
+        font-family: FSMeridian-Medium;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        animation: Title 1s ease 1s forwards;
+        transform: translateX(-200%);
+        cursor: pointer;
+      }
+
+      .btn span {
+        padding-right: 10px;
+      }
+      /* Box Pictures */
+      #home-pictures {
+        width: 65%;
+        height: 100%;
+        overflow: hidden;
+        transform: translateY(-110%);
+        animation: project 1s ease-in-out 2s forwards;
+      }
+      .pictures-container {
+        height: 100%;
+        display: flex;
+        overflow: hidden;
+        transition: all 0.5s ease;
+      }
+      /* All pieces */
+      .pictures-container .img-piece1,
+      .pictures-container .img-piece2,
+      .pictures-container div.img-piece3 {
+        padding-right: 1px;
+        flex: 1;
+        position: relative;
+      }
+      .pictures-container:hover div {
+        transform: translateY(0);
+        transition: all 0.3s ease;
+      }
+      .pictures-container:hover div img {
+        filter: grayscale(0%);
+      }
+      .img-piece1 {
+        transform: translateY(40px);
+        transition: all 0.3s ease;
+      }
+      .img-piece2 {
+        transform: translateY(-36px);
+        transition: all 0.3s ease;
+      }
+      .img-piece3 {
+        transition: all 0.3s ease;
+        transform: translateY(40px);
+      }
+      .img-piece_inner {
+        width: 100%;
+        height: 100%;
+      }
+      .img-piece_inner img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        padding-right: 2px;
+        transition: all 0.5s ease;
+        filter: grayscale(100%);
+      }
+      /* piece 1 */
+      .pictures-container div.img-piece1 img:nth-child(1),
+      .pictures-container div.img-piece1 img:nth-child(2) {
+        transform: translateY(110%);
+        transition: all 0.5s ease-in-out;
+      }
+      /* piece 2 */
+      .pictures-container div.img-piece2 img:nth-child(1),
+      .pictures-container div.img-piece2 img:nth-child(2) {
+        transform: translateY(-100%);
+        transition: all 0.5s ease-in-out;
+      }
+
+      /* piece 3 */
+      .pictures-container div.img-piece3 img:nth-child(1),
+      .pictures-container div.img-piece3 img:nth-child(2) {
+        transform: translateY(110%);
+        transition: all 0.5s ease-in-out;
+      }
+      /* Who We are */
+      .who-we {
+        display: none;
+        height: 100%;
+      }
+      .who-we_text {
+        width: 350px;
+        position: relative;
+        height: 100%;
+        display: grid;
+        place-content: center;
+      }
+      .who-we_pic {
+        width: 65%;
+        transform: translateY(-110%);
+        animation: project 1s ease-in-out 2s forwards;
+      }
+      .who-we_pic_inner {
+        width: 100%;
+        height: 100%;
+        background-image: url(./img/25\ Thatcher\ -03\ 1.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .who-we_pic img {
+        width: 100%;
+        height: 100%;
+      }
+      .who-header {
+        padding-top: 201px;
+        padding-bottom: 55px;
+        transform: translateX(-130%);
+        animation: Title 1s ease 0.5s forwards;
+      }
+      .who-header h1 {
+        font-family: Oswald-Light;
+        font-size: 55px;
+        font-weight: 200;
+        margin-bottom: 15px;
+      }
+      .who-header p {
+        font-size: 15px;
+        line-height: 26px;
+        padding: 5px 0;
+        padding-right: 23px;
+      }
+      .who-arrows {
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateX(-130%);
+        animation: Title 1s ease 1s forwards;
+      }
+      .who-arrows .btn {
+        cursor: pointer;
+      }
+      .who-arrows .btn:nth-child(1) span {
+        padding-left: 10px;
+      }
+      /* Animations class */
+      .slideHome {
+        animation: slideHome 1s ease-in forwards;
+      }
+      .slideWho {
+        animation: slideWho 0.5s ease-in forwards;
+      }
+      .displayingFlex {
+        display: flex;
+      }
+      .displayingNone {
+        display: none;
+      }
+      @font-face {
+        font-family: FSMeridian-Regular;
+        src: url(Fonts/FSMeridian-Regular.ttf);
+      }
+      @font-face {
+        font-family: FSMeridian-Medium;
+        src: url(Fonts/FSMeridian-Medium.ttf);
+      }
+      @font-face {
+        font-family: FSMeridian-Light;
+        src: url(Fonts/FSMeridian-Light.ttf);
+      }
+      @font-face {
+        font-family: FSMeridian-Bold;
+        src: url(Fonts/FSMeridian-Bold.ttf);
+      }
+      @font-face {
+        font-family: FSMeridian-Thin;
+        src: url(Fonts/FSMeridian-Thin.ttf);
+      }
+
+      @font-face {
+        font-family: Oswald-VariableFont;
+        src: url(Fonts/Oswald-VariableFont_wght.ttf);
+      }
+      @font-face {
+        font-family: Oswald-Light;
+        src: url(Fonts/oswald-extralight.ttf);
+      }
+      @keyframes discover {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(20px);
+        }
+      }
+
+      @keyframes Title {
+        from {
+          transform: translateX(-100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+      @keyframes project {
+        from {
+          transform: translateY(-110%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+      @keyframes slideHome {
+        0% {
+          transform: translateX(0%);
+        }
+        50% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(130%);
+        }
+      }
+      @keyframes slideWho {
+        0% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(-130%);
+        }
+      }
+
+      @media screen and (max-width: 1300px) {
+        .who-we_text {
+          width: 35%;
+        }
+        .who-arrows {
+          position: absolute;
+          bottom: 57px;
+        }
+      }
+      @media screen and (max-width: 900px) {
+        .who-arrows {
+          width: 85%;
+        }
+        .who-header h1 {
+          font-size: 38px;
+        }
+        .who-header p {
+          font-size: 13px;
+        }
+      }
+      @media screen and (max-width: 768px) {
+        /* Navbar */
+        .home-header {
+          display: none;
+        }
+        #header {
+          display: block;
+        }
+        .home-header_logo {
+          padding-top: 0;
+          height: auto;
+          padding-bottom: 25px;
+        }
+        .home-header_logo_img {
+          height: 56px;
+          margin: 0;
+        }
+        .mobile-logo p {
+          font-size: 12px;
+        }
+        .hamburger {
+          margin-top: 22px;
+          cursor: pointer;
+        }
+        .pictures-container {
+          height: 80%;
+        }
+        /* home-main */
+        .home-main {
+          width: 100%;
+        }
+        #home-pictures {
+          height: 89%;
+        }
+        .pictures-container {
+          width: 100%;
+        }
+        .home-title_text {
+          padding: 0 40px;
+          padding-top: 0px;
+        }
+        .home-title_text h1 {
+          font-weight: 100;
+          font-size: 49px;
+        }
+        .home-title_text {
+          justify-content: center;
+        }
+
+        .home-title_text .btn {
+          padding-bottom: 40px;
+        }
+        .who-we_text {
+          width: 400px;
+          display: block;
+        }
+        .who-header {
+          padding: 0 30px;
+        }
+        .who-header p {
+          font-size: 14px;
+          line-height: 28px;
+          padding: 10px 0px;
+        }
+        .who-we_pic_inner {
+          /* width: 200%; */
+          height: 70%;
+        }
+        .who-arrows {
+          bottom: 190px;
+          left: 20px;
+        }
+      }
+
+      @media screen and (max-width: 490px) {
+        .pictures-container {
+          width: 230%;
+        }
+        .home-title_text h1 {
+          font-weight: 100;
+          font-size: 40px;
+        }
+
+        #home-pictures {
+          height: 89%;
+        }
+        .home-title_text .btn {
+          padding-bottom: 40px;
+        }
+        .home-title_text_header p {
+          padding-right: 0px;
+          font-size: 18px;
+        }
+        .who-we_text {
+          width: 510px;
+        }
+        .who-header {
+          padding-top: 60px;
+        }
+        .who-header p {
+          text-align: justify;
+          padding: 0;
+        }
+        .who-we_pic_inner {
+          background-position: center;
+        }
+      }
+
+      @media screen and (max-width: 430px) {
+        .who-header {
+          padding-top: 30px;
+        }
+        .who-header h1 {
+          font-size: 31px;
+        }
+      }
+
+      @media screen and (max-width: 400px) {
+        .who-header {
+          padding-top: 30px;
+        }
+        .who-header p {
+          font-size: 12px;
+        }
+        .who-arrows {
+          bottom: 159px;
+        }
+      }
+
+      @media (max-height: 710px) {
+        .home-title_text {
+          padding-top: 100px;
+        }
+        .home-title_text_header {
+          padding-bottom: 50px;
+        }
+        .who-header {
+          padding-top: 47px;
+        }
+      }
+      @media (max-height: 549px) {
+        .who-we_text {
+          width: 411px;
+        }
+        .home-title_text {
+          padding-top: 100px;
+        }
+        .home-title_text_header {
+          padding-bottom: 50px;
+        }
+        .who-header {
+          padding-top: 47px;
+          padding-bottom: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Mobile navbar -->
+    <header id="header">
+      <nav id="navbar" class="navbar">
+        <div class="container navbar-container">
+          <div class="mobile-logo">
+            <div class="home-header_logo">
+              <div class="home-header_logo_img">
+                <img src="img/logo.png" alt="" />
+              </div>
+            </div>
+            <p><span>|</span> (905) 597-5594</p>
+          </div>
+          <ul class="mobile-list home-nav_list">
+            <li class="home-nav_item">
+              <a class="home-nav_link" href="#"> Home </a>
+            </li>
+            <li class="home-nav_item">
+              <a class="home-nav_link" href="#"> EXPERTISE </a>
+            </li>
+            <li class="home-nav_item">
+              <a class="home-nav_link" href="#"> PORTFOLIO </a>
+            </li>
+            <li class="home-nav_item">
+              <a class="home-nav_link" href="#"> CONTACT </a>
+            </li>
+            <li class="home-nav_item">
+              <a class="home-nav_link" href="#"> ABOUT </a>
+            </li>
+            <div class="close">
+              <img src="img/close.png" alt="" />
+            </div>
+          </ul>
+          <div class="search-hamburger">
+            <div class="hamburger">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="body-container">
+      <div class="home-header">
+        <div class="home-header_logo">
+          <div class="home-header_logo_img">
+            <img src="img/logo.png" alt="" />
+          </div>
+        </div>
+        <nav class="home-nav">
+          <ul class="home-nav_list">
+            <li class="home-nav_item active">
+              <a class="home-nav_link" href="#"> Home </a>
+            </li>
+            <li class="home-nav_item">
+              <a class="home-nav_link" href="#"> EXPERTISE </a>
+            </li>
+            <li class="home-nav_item">
+              <a class="home-nav_link" href="#"> PORTFOLIO </a>
+            </li>
+            <li class="home-nav_item">
+              <a class="home-nav_link" href="#"> CONTACT </a>
+            </li>
+            <li class="home-nav_item">
+              <a class="home-nav_link" href="#"> ABOUT </a>
+            </li>
+          </ul>
+          <div class="social-home">
+            <a href="#"> <i class="fab fa-whatsapp"></i> </a>
+            <a href="#"> <i class="fab fa-instagram"></i> </a>
+            <a href="#">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </nav>
+      </div>
+      <div class="home-original">
+        <div class="home-main" id="home-main">
+          <div id="home-title">
+            <div class="home-title_text">
+              <div class="home-title_text_header">
+                <h1>Design Excellence</h1>
+                <p>
+                  Combining architecture and engineering to deliver
+                  state-of-the-art services.
+                </p>
+              </div>
+              <div class="btn" id="btn-discover">
+                <span>Discover</span>
+                <img src="img/right.png" alt="" />
+              </div>
+            </div>
+          </div>
+          <div id="home-pictures">
+            <div class="pictures-container">
+              <!-- Piece 1 -->
+              <div class="img-piece1">
+                <div class="img-piece_inner" id="piece_1">
+                  <img
+                    src="img/hovers/piece2_01.jpg"
+                    data-img="piece_3"
+                    class="piece_1"
+                    alt=""
+                  />
+                  <img
+                    src="img/hovers/piece3_01.jpg"
+                    data-img="piece_2"
+                    class="piece_1"
+                    alt=""
+                  />
+                  <img src="img/hovers/piece_01.jpg" alt="" />
+                </div>
+              </div>
+              <!-- Piece 2 -->
+              <div class="img-piece2">
+                <div class="img-piece_inner" id="piece_2">
+                  <img
+                    src="img/hovers/piece2_02.jpg"
+                    data-img="piece_3"
+                    class="piece_2"
+                    alt=""
+                  />
+                  <img
+                    src="img/hovers/piece_02.jpg"
+                    class="piece_2"
+                    data-img="piece_1"
+                    alt=""
+                  />
+                  <img src="img/hovers/piece3_02.jpg" alt="" />
+                </div>
+              </div>
+              <!-- Piece 3 -->
+              <div class="img-piece3">
+                <div class="img-piece_inner" id="piece_3">
+                  <img
+                    src="img/hovers/piece3_03.jpg"
+                    class="piece_3"
+                    data-img="piece_2"
+                    alt=""
+                  />
+                  <img
+                    src="img/hovers/piece_03.jpg"
+                    class="piece_3"
+                    data-img="piece_1"
+                    alt=""
+                  />
+                  <img src="img/hovers/piece2_03.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="who-we" id="who-we">
+          <div class="who-we_text">
+            <div class="who-header">
+              <h1>WHO WE ARE</h1>
+              <p>
+                6ixDesign is a young and innovative architectural design and
+                engineering studio based in Toronto, Canada. We embrace
+                challenges and growth.
+              </p>
+              <p>
+                Our projects include residential, commercial, entertainment,
+                retail, interior design, and rehabilitation.
+              </p>
+              <p>
+                Leveraged by our sister companies 6ixBuild and 6ixDev, our team
+                includes architects, interior designers, technologists,
+                engineers, and lead specialists.
+              </p>
+            </div>
+            <div class="who-arrows">
+              <div class="btn" id="back-home">
+                <img src="img/left.png" alt="" />
+                <span>back</span>
+              </div>
+              <div class="btn">
+                <span>next</span>
+                <img src="img/right.png" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="who-we_pic">
+            <div class="who-we_pic_inner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const photoes = document.querySelectorAll(".img-piece_inner");
+      const openMenu = document.querySelector(".hamburger");
+      const closeMenu = document.querySelector(".close");
+      const menu = document.querySelector(".mobile-list");
+      // Btns
+      const btnDiscover = document.getElementById("btn-discover");
+      const back = document.getElementById("back-home");
+      // Slides
+      const home = document.getElementById("home-main");
+      const who = document.getElementById("who-we");
+      // Elements home
+      const homeTitle = document.querySelector(".home-title_text_header");
+      const homePic = document.querySelector("#home-pictures");
+      // Elements Who We Are
+      const whoTitle = document.querySelector(".who-header");
+      const whoArrows = document.querySelector(".who-arrows");
+      const whoPic = document.querySelector(".who-we_pic");
+
+      let pieces;
+      photoes.forEach((photo) => {
+        photo.addEventListener("mouseover", function () {
+          pieces = document.querySelectorAll(`[data-img=${photo.id}]`);
+          pieces.forEach((piece) => {
+            piece.style.zIndex = "1";
+            piece.style.transform = "translateY(0)";
+          });
+        });
+        photo.addEventListener("mouseout", function () {
+          pieces.forEach((piece) => {
+            piece.style.zIndex = "0";
+            if (piece.classList.contains("piece_1")) {
+              piece.style.transform = "translateY(110%)";
+            }
+            if (piece.classList.contains("piece_2")) {
+              piece.style.transform = "translateY(-100%)";
+            }
+            if (piece.classList.contains("piece_3")) {
+              piece.style.transform = "translateY(110%)";
+            }
+          });
+        });
+      });
+
+      openMenu.addEventListener("click", () => {
+        menu.style.transform = "translateX(0)";
+      });
+
+      closeMenu.addEventListener("click", () => {
+        menu.style.transform = "translateX(100%)";
+      });
+
+      btnDiscover.addEventListener("click", () => {
+        home.classList.add("slideHome");
+        setTimeout(() => {
+          home.classList.add("displayingNone");
+          who.classList.add("displayingFlex");
+          home.classList.remove("slideHome");
+        }, 1000);
+      });
+
+      back.addEventListener("click", () => {
+        who.classList.add("slideWho");
+        setTimeout(() => {
+          home.classList.remove("displayingNone");
+          who.classList.remove("displayingFlex");
+          who.classList.remove("slideWho");
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
